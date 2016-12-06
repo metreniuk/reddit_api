@@ -8,6 +8,7 @@ let postsCount = process.argv[3]
 let catgs = []
 let posts = []
 
+clearFolder(path)
 catgsCustomRequest(catgsCount, '')
 
 function postsCustomRequest (catg, remained, after) {
@@ -56,7 +57,7 @@ function catgsCustomRequest(remained, after) {
     request(baseLink + '/subreddits.json?after=' + after, (error, response, body) => {
 
   if (!error && response.statusCode == 200) {
-    clearFolder(path)
+
     let res = JSON.parse(body)
 
     let k = remained > 25 ? 25: remained

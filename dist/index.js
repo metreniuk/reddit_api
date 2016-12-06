@@ -10,6 +10,7 @@ var postsCount = process.argv[3];
 var catgs = [];
 var posts = [];
 
+clearFolder(path);
 catgsCustomRequest(catgsCount, '');
 
 function postsCustomRequest(catg, remained, after) {
@@ -79,7 +80,7 @@ function catgsCustomRequest(remained, after) {
     request(baseLink + '/subreddits.json?after=' + after, function (error, response, body) {
 
         if (!error && response.statusCode == 200) {
-            clearFolder(path);
+
             var res = JSON.parse(body);
 
             var k = remained > 25 ? 25 : remained;
