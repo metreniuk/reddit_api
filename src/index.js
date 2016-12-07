@@ -52,42 +52,42 @@ function postsCustomRequest (catg, remained, after) {
 function catgsCustomRequest(remained, after) {
     request(baseLink + '/subreddits.json?after=' + after, (error, response, body) => {
 
-  if (!error && response.statusCode == 200) {
-    let res = JSON.parse(body)
+      if (!error && response.statusCode == 200) {
+        let res = JSON.parse(body)
 
-    let k = remained > 25 ? 25: remained
-    //console.log(remained
+        let k = remained > 25 ? 25: remained
+        //console.log(remained
 
-    for (let i = 0; i < k; i++) {
-        if (k > res.data.children.length) {
-            console.log('There is no such amount of categories')
-            return
+        for (let i = 0; i < k; i++) {
+            if (k > res.data.children.length) {
+                console.log('There is no such amount of categories')
+                return
+            }
+            catgs.push({
+                title: res.data.children[i].data.url.split('/')[2],
+                url: baseLink + res.data.children[i].data.url,
+                posts: [],
+                after: res.data.after
+            })
         }
-        catgs.push({
-            title: res.data.children[i].data.url.split('/')[2],
-            url: baseLink + res.data.children[i].data.url,
-            posts: [],
-            after: res.data.after
-        })
-    }
 
-    if (remained > 25) catgsCustomRequest(remained - 25, res.data.after)
-        else {
-            console.log('remained ' + remained)
-            if (catgs) {
-                //console.log(catgs)
-                
-                for (let catg of catgs) {
-                    postsCustomRequest(catg, postsCount, '')
+        if (remained > 25) catgsCustomRequest(remained - 25, res.data.after)
+            else {
+                console.log('remained ' + remained)
+                if (catgs) {
+                    //console.log(catgs)
+                    
+                    for (let catg of catgs) {
+                        postsCustomRequest(catg, postsCount, '')
+                    }
                 }
             }
-        }
 
-    
-  } else {
-    console.log("Couldnt' connect\n" + error.message)
-  }
-})
+        
+      } else {
+        console.log("Couldnt' connect\n" + error.message)
+      }
+    })
 }
 
 function clearFolder(path) {
