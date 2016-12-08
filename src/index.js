@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const request = require('request')
-const path = "../files/"
+const path = "../filesv1/"
 
 let baseLink = 'https://www.reddit.com';
 let catgsCount = process.argv[2]

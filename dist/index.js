@@ -2,7 +2,7 @@
 
 var fs = require('fs-extra');
 var request = require('request');
-var path = "../files/";
+var path = "../filesv1/";
 
 var baseLink = 'https://www.reddit.com';
 var catgsCount = process.argv[2];
