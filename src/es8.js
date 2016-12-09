@@ -6,7 +6,7 @@ const subRedditUrl = baseLink + '/subreddits.json'
 const categoriesCount = process.argv[2]
 const postsCount = process.argv[3]
 const maxPerPage = 25
-const path = './files/'
+const path = '../files/'
 
 const safe = async (cb) => {
   try {
@@ -43,10 +43,12 @@ const getCategories = async (subRedditUrl, amount) => {
     // to extract the amount of categories that I need
     ceil = remained < maxPerPage ? remained : children.length
     for (let i = 0; i < ceil; i++) {
-      categories.push({
-        title: children[i].data.url.split('/')[2],
-        url: baseLink + children[i].data.url + '.json'
-      })
+      if (children[i].data.url.split('/')[2] !== 'promos') {
+        categories.push({
+          title: children[i].data.url.split('/')[2],
+          url: baseLink + children[i].data.url + '.json'
+        })
+      }
     }
   }
   return categories
@@ -111,7 +113,8 @@ const main = async () => {
     url: el.url,
     posts: responses[index]
   }))
-  detailedCategories.forEach((el) => {
+  detailedCategories.forEach((el, index) => {
+    console.log(el.title, index)
     writeHtml(path + el.title + '.html', generateHtml(el))
   })
 }

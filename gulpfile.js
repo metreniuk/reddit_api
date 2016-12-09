@@ -1,16 +1,16 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
 
-gulp.task("es6", function () {
+gulp.task("es8", function () {
   return gulp.src("src/*.js")
     .pipe(babel({
-            presets: ['es2015']
+            presets: ['es2017']
         }))
     .pipe(gulp.dest("dist"));
 });
 
-gulp.task("es6:watch", function () {
-  gulp.watch("src/*.js", ['es6']);
+gulp.task("es8:watch", function () {
+  gulp.watch("src/*.js", ['es8']);
 });
 
-gulp.task('default', ['es6', 'es6:watch']);
+gulp.task('default', ['es8', 'es8:watch']);
